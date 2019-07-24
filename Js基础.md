@@ -318,3 +318,369 @@ function count(num1,sign,num2){
 }
 console.log(count(10,"*",20));
 ```
+
+
+#### 自定义对象
+我们可以通过一对花括号来创建一个对象
+``` js
+var obj = {};
+```
+
+在花括号中，我们可以为对象定义属性，下面我们来写一个猫的对象
+``` js
+var cat = {               //定义一个对象cat,它有两个属性，name和age
+    name:"喵喵",
+    age:2
+}
+//有两种方法可以获取到对象的属性值：1、对象名.属性名；2、对象名["属性名"]
+console.log(cat.name);    
+console.log(cat["name"]);
+```
+
+
+#### 方法
+通过上面的例子我们可以知道name的属性值是字符串类型，age的属性值是数值类型。其实对象的属性值可以是任何数据类型，甚至可以是函数，如果对象的属性值是函数，那么我们叫这个属性为这个对象的方法。
+
+``` js
+var cat = {
+    name:"喵喵",
+    age:2,
+    sayName:function(){
+        console.log("我是喵喵");
+    }
+}
+cat.sayName();
+```
+
+#### this关键字
+在上面的例子中，我们可以给cat的那么属性重新赋值，代码如下；
+``` js
+var cat = {
+    name:"喵喵",
+    age:2,
+    sayName:function(){
+        console.log("我是喵喵")
+    }
+}
+cat.name = "小白";
+console.log(cat.name);    //输出"小白"
+cat.sayName();            //输出"我是喵喵"
+
+```
+
+因为猫的名字已经改变，但是sayName方法里面的名字并没有一同变化，我们可以通过this关键字实现修改了名字，方法里面的名字也会改变。
+
+
+在对象的方法中使用this，可以指向这个对象本身
+``` js
+var cat = {
+    name:"喵喵",
+    age:2,
+    sayName:function(){
+        console.log("我是"+this.name)
+    }
+}
+cat.sayName();            //输出“我是喵喵”
+cat.name = "小白";
+console.log(cat.name);    //输出"小白"
+cat.sayName();            //输出“我是小白”
+```
+
+
+#### 方法传参
+给对象的方法传递参数和给函数传递参数是一样的，下面我们来定义一个会算数的猫
+``` js
+var cat = {
+    name:"喵喵",
+    age:2,
+    sayName:function(){
+        console.log("我是"+this.name)
+    },
+    count:function(num1,num2){
+        console.log(num1+num2);
+    }
+}
+
+cat.sayName();
+cat.count(10,20);
+```
+我们在之前代码的基础上，有添加了一个count方法可以让猫可以计算两个数的加和，我们只要传入实参，猫就能计算结果。
+
+
+#### 数组的基本概念
+数组是一个特殊的对象，对象的概念是属性的集合，而数组是元素的有序集合。我们可以通过一个中括号来定义一个数组。
+``` js
+var numlist = [1,3,5,7,9];
+```
+
+在上面的代码中我们定义了一个数组，数组有5个元素，五个元素多是数值型。我们可以通过数组的变量名配合中括号来获取数组的元素
+
+
+``` js
+var numlist = [1,3,5,7,9];
+console.log(numlist[0]);   //输出数组的第一个元素
+console.log(numlist[4]);   //输出数组的第五个元素
+```
+
+中括号中的数字叫做数组的下标，我们可以通过下标获取数组的元素，要注意的是下标是从零开始的。
+
+
+数组是特殊的对象，它有自己的属性和方法，其中最常用的属性就是length，它可以获取数组元素的个数。
+
+``` js
+var numlist = [1,3,5,7,9];
+console.log(numlist.length) // 输出5
+```
+
+数组中的元素可以是任意类型的，但是我们一般将数组中的元素设置成相同数据类型，
+
+
+``` js
+var friends = ["小明","小亮","小红"];
+console.log(friends[0]);  //小明
+console.log(friends[1]);  //小亮
+console.log(friends[2]);  //小红
+console.log(friends.length);  //3
+```
+
+
+#### 遍历数组
+数组中的元素可能很多，元素的个数也可能发生变化，所以需要输出数组所有元素的时候，手动用下标输出每一个值，我们需要一种更自动的方法来查询数组中的每一个元素，这就是遍历数组，我们可以使用for循环来遍历数组。
+
+``` js
+var friends = ["小明","小亮","小红","张三","李四","王五"];
+for(var i = 0;i<friends.length;i++){
+    console.log(friends[i]);     //输出数组中的所有元素
+}
+```
+
+使用for...in语句同样可以遍历数组
+``` js
+var friends = ["小明","小亮","小红","张三","李四","王五"];
+for(var i in friends){
+    console.log(friends[i]);
+}
+```
+
+
+#### 数组的常用方法
+
+* 添加元素push：
+我们可以使用push方法想数组中追加元素
+``` js
+var friends = ["小明","小亮"];
+friends.push("小红");
+console.log(friends);   //输出["小明","小亮","小红"];
+```
+
+我们可以使用for语句循环箱数组中插入内容：
+``` js
+var arr = [];
+for(var i = 0;i<10;i++){
+    arr.push(i);
+}
+console.log(arr);   //输出[0,1,2,3,4,5,6,7,8,9]
+```
+
+* 数组连接成字符串join：
+通过join方法可以将数组链接成一个字符串
+``` js
+var friends = ["小明","小亮","小红","张三","李四","王五"];
+var str1 = friends.join();    //用逗号分隔
+var str2 = friends.join("");  //没有分隔
+var str3 = friends.join("+"); //用加号分隔
+console.log(str1);
+console.log(str2);
+console.log(str3);
+```
+
+
+#### 弹出框方法
+为了模拟客户端的输入和输出，我们在这里使用浏览器的弹出框。浏览器的弹出框方法有三个，分别是alert、prompt、confirm。
+* alert是最简单的弹出框，我们在之前的课程中使用过，它可以向用户显示一条消息，并等待用户关闭对话框。
+``` js
+alert("hello world");
+```
+
+* confirm也会向用户显示一条消息，但是用户可以通过点击“确定”或“取消”按钮，并返回一个布尔值。
+``` js
+var result = confirm("点确定返回true,点取消返回false");
+console.log(result);   //点击不同按钮，控制台输出结果不同
+```
+
+* prompt也可以像用户显示一条消息，等待用户输入字符串后，返回这个字符串，如果用户点击取消，则返回null。
+``` js
+var result = prompt("请输入你的名字：")
+console.log(result);   
+```
+
+#### 数学计算
+我们利用上面弹出框来实现一个数学计算的功能,步骤如下：
+1. 弹出输入框，输入第一个数字
+2. 弹出输入框，输入操作符
+3. 弹出输入框，输入第二个数字
+4. 弹出对话框，显示计算结果
+5. 如果输入错误会有相应的错误提示
+
+上面是我们的程序的需求，我们来一步步完成这个功能。首先，我们先实现弹出框的功能，为了确定我们输入的内容被成功获取，我们将输入的内容在控制台输出。
+``` js
+var num1 = Number(prompt("请输入第一个数字"));   //为了方便计算，将获取的字符串转换成数值类型
+var sign = prompt("请输入+-*/中的任意操作符");
+var num2 = Number(prompt("请输入第二个数字"));
+console.log(num1);
+console.log(sign);
+console.log(num2);
+```
+
+我们已经成功的获取到了需要计算的数字和操作符，下面我们要编写一个用来实现四则运算的函数帮助我们计算记过。
+``` js
+var x = 10;
+var y = 20;
+var sign = "+";
+var result;
+
+function count(n,s,m){    //n是第一个数字，s是操作符，m是第二个数
+    switch(s){
+        case "+":return n+m;break;
+        case "-":return n-m;break;
+        case "*":return n*m;break;
+        case "/":return n/m;break;
+    }
+}
+
+result = count(x,sign,y);
+console.log(result);
+```
+count函数就是我们要的函数，它可以实现通过两个数字和一个操作符作为参数，然后返回值是计算的结果。上面我们已经对函数进行了测试，可以实现计算功能。下一步，我们需要将函数放到我们提示框功能内。并通过它计算出结果。
+
+``` js
+var num1 = Number(prompt("请输入第一个数字"));   //为了方便计算，将获取的字符串转换成数值类型
+var sign = prompt("请输入+-*/中的任意操作符");
+var num2 = Number(prompt("请输入第二个数字"));
+var result;
+
+function count(n,s,m){    //n是第一个数字，s是操作符，m是第二个数
+    switch(s){
+        case "+":return n+m;break;
+        case "-":return n-m;break;
+        case "*":return n*m;break;
+        case "/":return n/m;break;
+    }
+}
+
+result = count(num1,sign,num2);
+alert(result);
+```
+
+上面我们已经实现了1~4的需求，但是现在的程序还很脆弱，如果我们随意输入的话，程序并不会给出友好的提示，所以我们需要为程序添加一些对错误输入的提示消息。
+
+#### DOM的基本概念
+* 文档对象模型
+* 定义了树状结构
+* 定义了接口，可以用来操作树状结构
+
+#### 样式操作
+我们可以通过DOM提供的querySelector方法来获取元素，然后进一步操作它的样式;
+``` html
+<h1>DOM样式测试</h1>
+<script>
+    var h1 = document.querySelector("h1");  
+    //querySelector的返回值是一个DOM对象，该方法可以通过选择器获取元素，若选择器找到多个元素，则返回第一个。
+    h1.style.color = "red"; 
+    //DOM对象的style属性可以设置元素内联样式。
+</script>
+```
+
+
+若需要通过js设置多个元素的样式，可以使用querySelectorAll方法。
+
+``` html
+<ul>
+    <li>香蕉</li>
+    <li>苹果</li>
+    <li>鸭梨</li>
+</ul>
+<script>
+    var ali = document.querySelectorAll("li");
+    //querySelectorAll方法的返回值是一个类数组的集合，里面保存的是获取的所有元素，所以如果希望为每一个元素设置样式，需要遍历这个集合。
+    for(var i = 0;i<ali.length;i++){
+        ali[i].style.color = "red";
+    }
+</script>
+```
+
+
+#### 三、绑定事件
+事件就是文档或者浏览器窗口发生的一些特定的交互瞬间，例如：用户点击网页会触发点击事件（click），用户在元素上移动会触发鼠标移动事件（mousemove）等。下面我们来定义一个点击事件，当我们点击一个按钮的时候，弹出"hello world"。
+``` html
+<button>按钮</button>
+<script>
+    var btn = document.querySelector("btn");
+    btn.onclick = function(){
+        console.log("hello world");
+    }
+</script>
+```
+我们将一个函数赋值给一个事件，当这个事件被触发的时候，这个函数就会被执行。
+
+
+#### 四、操作属性
+我们可以通过JavaScript获取和设置元素属性，例如input的value属性值，或者img的src属性。
+
+首先我们来实现一个效果，在文本框中输入字符串，然后点击按钮用在控制台输出我们输入的字符串
+``` html
+<input type="text">
+<button>输出</button>
+<script>
+    var input = document.querySelector("input");
+    var btn = document.querySelector("button");
+    btn.onclick = function(){
+        var text = input.value;    //获取input的value属性
+        console.log(text);
+    }
+</script>
+```
+我们还可以通过赋值的方式为一个元素设置属性。
+``` html
+<img src="images/img1.jpg" alt="">
+<button>切换图片</button>
+<script>
+    var img = document.querySelector("img");
+    var btn = document.querySelector("button");
+    btn.onclick = function(){
+        img.src = "images/img2.jpg";
+    }
+</script>
+```
+当点击按钮的时候，通过赋值的方式把另一张图片的地址赋值给img标签的src属性，就实现了图片切换的效果
+
+#### 五、数学计算案例
+下面我们来实现一个能完成数学计算的程序，页面有四个文本框和一个按钮，我们在第一个文本框输入一个数字，在第二个文本框输入一个操作符，第三个文本框再输入一个数字，然后当我们点击计算按钮的时候，会在第四个文本框计算出结果,这个例子和我们学习switch语句的时候写的例子很像，但是那时候我们没有可操作的页面，现在我们把计算功能写在一个函数中。
+``` html
+    <input type="text" id="num1">
+    <input type="text" id="sign">
+    <input type="text" id="num2">
+    <input type="text" d="result">
+    <button>计算</button>
+    <script>
+        var num1 = document.querySelector("#num1");
+        var sign = document.querySelector("#sign");
+        var num2 = document.querySelector("#num2");
+        var result = document.querySelector("#result");
+        var btn = document.querySelector("button");
+        btn.onclick = function(){
+            var n = Number(num1.value);    //将字符串类型转换成数字类型
+            var m = Number(num2.value);
+            var r = count(n,sign.value,m);
+            result.value = r;
+        }
+        function count(n,s,m){    //n是第一个数字，s是操作符，m是第二个数
+            switch(s){
+                case "+":return n+m;break;
+                case "-":return n-m;break;
+                case "*":return n*m;break;
+                case "/":return n/m;break;
+            }
+        }
+    </script>
+```
